@@ -185,7 +185,7 @@ game g nAliens vydAlien score0 = proc gi -> do
                     ++ hitsAux kooss
         
                 oos1 `hit` oos2
-                    | gsMissile oos1 && isAlien oos2
+                    | isMissile oos1 && isAlien oos2
                       || isAlien oos1 && isMissile oos2 = oos1 `colliding` oos2
                     | otherwise = False
         

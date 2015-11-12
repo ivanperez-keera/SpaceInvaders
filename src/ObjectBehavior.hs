@@ -20,6 +20,7 @@ module ObjectBehavior (
 import qualified System.Random as Random
 
 import FRP.Yampa
+import FRP.Yampa.Integration
 import FRP.Yampa.Utilities
 import FRP.Yampa.Geometry
 
