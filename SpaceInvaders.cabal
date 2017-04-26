@@ -1,14 +1,14 @@
 name: SpaceInvaders
-version: 0.4.2
+version: 0.4.3
 cabal-Version: >= 1.2
 license: BSD3
 license-file: LICENSE
 author: Henrik Nilsson, Antony Courtney
-maintainer: George Giorgidze (GGG at CS dot NOTT dot AC dot UK)
+maintainer: Ivan Perez <ivan.perez@keera.co.uk>
 homepage: http://www.haskell.org/yampa/
 category: Game
 synopsis: Video game
-description: Video game implemented in Yampa. 
+description: Video game implemented in Yampa.
 build-type: Simple
 
 executable spaceInvaders
