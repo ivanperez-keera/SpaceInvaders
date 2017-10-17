@@ -14,6 +14,8 @@ particular:
 * Differentiated subsystems for physics/collisions, input,
   rendering/multimedia, logic, etc.
 
+![SpaceInvaders on Debian](screenshots/debian.png?raw=true)
+
 ## Installation
 
 The game will also be available on hackage. I personally recommend using sandboxes (either with cabal or with cabal-dev)*:
@@ -44,7 +46,7 @@ $ cabal configure && cabal haddock --executables --internal
 
 This game was used in a paper called The Yampa Arcade, by Henrik Nilsson ([details](http://www.cs.nott.ac.uk/~psznhn/papers.html#hw2003)). It is used to explain FRP to new audiences.
 * [slides from a 2003 talk](http://www.cs.nott.ac.uk/~psznhn/Talks/HW2003-YampaArcade.pdf)
-* [More up to date slides but on FRP/Yampa more generally](   http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic.pdf) and as [handout](   http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic-4up.pdf) It makes some comparisons with Cycle.js and XStreams which might
+* [More up to date slides but on FRP/Yampa more generally](   http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic.pdf) and as [handout](   http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic-4up.pdf). It makes some comparisons with Cycle.js and XStreams which might
     be useful to some readers.
 * [More generally, this series of lectures of FRP including SpaceInvaders as an example.](http://www.cs.nott.ac.uk/~psznhn/ITU-FRP2010/ITU-FRP2010.html)
 
