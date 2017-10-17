@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/ivanperez-keera/SpaceInvaders.svg?branch=master)](https://travis-ci.org/ivanperez-keera/SpaceInvaders)
 [![Version on Hackage](https://img.shields.io/hackage/v/SpaceInvaders.svg)](https://hackage.haskell.org/package/SpaceInvaders)
-[![Flattr this](http://api.flattr.com/button/flattr-badge-large.png "Flattr This!")](https://flattr.com/submit/auto?user_id=ivanperez-keera&url=https://github.com/ivanperez-keera/SpaceInvaders&title=SpaceInvaders&language=&tags=github&category=software)
 
 This is a Haskell Space Invaders game implemented using the Functional
 Reactive Programming library Yampa.
@@ -18,7 +17,7 @@ particular:
 
 ## Installation
 
-The game will also be available on hackage. I personally recommend using sandboxes (either with cabal or with cabal-dev)*:
+The game will also be available on hackage. We personally recommend using sandboxes (either with cabal or with cabal-dev)*:
 
 ```
 $ cabal update
@@ -37,7 +36,7 @@ documentation and comments as we could reasonably fit. You can compile those wit
 ```
 $ cabal unpack SpaceInvaders     ## Or git clone this-repo
 $ cd SpaceInvaders-*
-$ cabal init
+$ cabal sandbox init
 $ cabal install --only-dependencies
 $ cabal configure && cabal haddock --executables --internal
 ```
@@ -45,10 +44,21 @@ $ cabal configure && cabal haddock --executables --internal
 ## Related slides and projects
 
 This game was used in a paper called The Yampa Arcade, by Henrik Nilsson ([details](http://www.cs.nott.ac.uk/~psznhn/papers.html#hw2003)). It is used to explain FRP to new audiences.
-* [slides from a 2003 talk](http://www.cs.nott.ac.uk/~psznhn/Talks/HW2003-YampaArcade.pdf)
+* [Slides from a 2003 talk](http://www.cs.nott.ac.uk/~psznhn/Talks/HW2003-YampaArcade.pdf)
 * [More up to date slides but on FRP/Yampa more generally](   http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic.pdf) and as [handout](   http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic-4up.pdf). It makes some comparisons with Cycle.js and XStreams which might
     be useful to some readers.
 * [More generally, this series of lectures of FRP including SpaceInvaders as an example.](http://www.cs.nott.ac.uk/~psznhn/ITU-FRP2010/ITU-FRP2010.html)
+* Yampa (http://github.com/ivanperez-keera/Yampa), the Arrowized Functional
+Reactive Programming implementation created by Antony Courtney and Henrik Nilsson.
+* [Haskanoid](https://github.com/ivanperez-keera/haskanoid): a game that uses
+  SDL multimedia, wiimote and kinect. It's cross platform and works in desktop,
+  mobile, and [web](http://ivanperez-keera.github.io/haskanoid/haskanoid.jsexe/index.html)
+  (compiled with [GHCJS](https://github.com/ghcjs/ghcjs)).
+* Magic Cookies (https://github.com/keera-studios/magic-cookies), a commercial
+  FRP game written in Haskell using Yampa that's available on
+[iTunes](https://itunes.apple.com/us/app/magic-cookies/id1244709871) and
+[Google
+Play](https://play.google.com/store/apps/details?id=uk.co.keera.games.magiccookies&hl=en).
 
 ## Educators
 
@@ -71,10 +81,14 @@ an interest in Functional Reactive Programming and/or Game Programming to
 review the code, ask for clarification when the code is not clear enough, and
 help us improve the game, and the state of FRP/Yampa programming as well.
 
-## Authors
+## Author
 
 * Henrik Nilsson
 
 ### Maintainer
 
 * Ivan Perez
+
+### Collaborators
+
+* Christina Zeller
