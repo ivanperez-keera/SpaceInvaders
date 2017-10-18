@@ -14,19 +14,28 @@ differentiated subsystems for physics/collisions, input, rendering/multimedia, l
 
 ## Installation
 
-The game will also be available on hackage. We personally recommend using sandboxes (either with cabal or with cabal-dev)*:
+The game is available on [hackage](https://hackage.haskell.org/package/SpaceInvaders) and you can install it with*:
 
 ```
 $ cabal update
-$ cabal sandbox init                # skip if you are using cabal-dev
+$ cabal sandbox init
+$ cabal install SpaceInvaders
+$ ./.cabal-sandbox/bin/spaceInvaders
+```
+
+If you want to explore the code and possibly make changes, do the following:
+
+```
+$ cabal update
+$ cabal sandbox init
 $ cabal unpack SpaceInvaders        # or git clone https://github.com/ivanperez-keera/SpaceInvaders.git
-$ cd SpaceInvaders-*                    # Game resources are here
-$ cabal install                     # ...or cabal-dev install
+$ cd SpaceInvaders-*                # Game resources are here
+$ cabal install
 $ ./dist/build/spaceInvaders/spaceInvaders
 ```
 
 *__Additional notes__:
-For the use of the above installation instruction you need [GHC](https://www.haskell.org/ghc/) and the [command-line interface for cabal](https://github.com/haskell/cabal/tree/master/cabal-install). On debian/ubuntu, you can install them with:
+For the use of the above installation instructions you need [GHC](https://www.haskell.org/ghc/) and the [command-line interface for cabal](https://github.com/haskell/cabal/tree/master/cabal-install). On debian/ubuntu, you can install them with:
 
 ```
 $ sudo apt-get install ghc cabal-install
@@ -73,14 +82,11 @@ etc.).
 
 ## Help and collaboration
 
-You can collaborate at least in two ways:
+You can collaborate at least in three ways:
 
 * File an issue (https://github.com/ivanperez-keera/SpaceInvaders/issues).
 * Write documentation (send a link and/or a pull request).
-
-## Homework
-
-We would like to call on Haskell programmers, game developers and anyone with
+* We would like to call on Haskell programmers, game developers and anyone with
 an interest in Functional Reactive Programming and/or Game Programming to
 review the code, ask for clarification when the code is not clear enough, and
 help us improve the game, and the state of FRP/Yampa programming as well.
