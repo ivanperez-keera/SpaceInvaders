@@ -7,11 +7,8 @@ This is a Haskell Space Invaders game implemented using the Functional
 Reactive Programming library Yampa.
 
 The game has been created for educational purposes, but tries to feature a
-substantial amount of the complexity often found in real arcade games. In
-particular:
-
-* Differentiated subsystems for physics/collisions, input,
-  rendering/multimedia, logic, etc.
+substantial amount of the complexity often found in real arcade games. For example,
+differentiated subsystems for physics/collisions, input, rendering/multimedia, logic, etc.
 
 ![SpaceInvaders on Debian](screenshots/debian.png?raw=true)
 
@@ -27,7 +24,14 @@ $ cd SpaceInvaders-*                    # Game resources are here
 $ cabal install                     # ...or cabal-dev install
 $ ./dist/build/spaceInvaders/spaceInvaders
 ```
- 
+
+*__Additional notes__:
+For the use of the above installation instruction you need [GHC](https://www.haskell.org/ghc/) and the [command-line interface for cabal](https://github.com/haskell/cabal/tree/master/cabal-install). On debian/ubuntu, you can install them with:
+
+```
+$ sudo apt-get install ghc cabal-install
+```
+
 ## Documentation
 
 To try and make things as clear as possible, the code includes a much haddock
