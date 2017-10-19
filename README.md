@@ -56,22 +56,13 @@ $ cabal configure && cabal haddock --executables --internal
 
 ## Related slides and projects
 
-This game was used in a paper called The Yampa Arcade, by Henrik Nilsson ([details](http://www.cs.nott.ac.uk/~psznhn/papers.html#hw2003)). It is used to explain FRP to new audiences.
-* [Slides](http://www.cs.nott.ac.uk/~psznhn/Talks/HW2003-YampaArcade.pdf) from a 2003 talk
-* More up to date [slides](   http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic.pdf) on FRP/Yampa more generally (also available as [handout](   http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic-4up.pdf)). It makes some comparisons with Cycle.js and XStreams which might
-    be useful to some readers.
-* More generally, this [series of lectures](http://www.cs.nott.ac.uk/~psznhn/ITU-FRP2010/ITU-FRP2010.html) of FRP including SpaceInvaders as an example.
-* [Yampa](http://github.com/ivanperez-keera/Yampa), the Arrowized Functional
-Reactive Programming implementation created by Antony Courtney and Henrik Nilsson.
-* [Haskanoid](https://github.com/ivanperez-keera/haskanoid): a game that uses
-  SDL multimedia, wiimote and kinect. It's cross platform and works in desktop,
-  mobile, and [web](http://ivanperez-keera.github.io/haskanoid/haskanoid.jsexe/index.html)
-  (compiled with [GHCJS](https://github.com/ghcjs/ghcjs)).
-* [Magic Cookies](https://github.com/keera-studios/magic-cookies), a commercial
-  FRP game written in Haskell using Yampa that's available on
-[iTunes](https://itunes.apple.com/us/app/magic-cookies/id1244709871) and
-[Google
-Play](https://play.google.com/store/apps/details?id=uk.co.keera.games.magiccookies&hl=en).
+* Paper: [The Yampa Arcade, by Henrik Nilsson](http://www.cs.nott.ac.uk/~psznhn/papers.html#hw2003). Used to explain FRP to new audiences.
+* Talks: [The Yampa Arcade, Haskell Symposium 2003](http://www.cs.nott.ac.uk/~psznhn/Talks/HW2003-YampaArcade.pdf).
+* Talks: [FRP Games and Music, 2016](http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic.pdf) (also available as [handout](http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic-4up.pdf)). Makes some comparisons with Cycle.js and XStreams.
+* Talks: [Lectures on FRP, 2010](http://www.cs.nott.ac.uk/~psznhn/ITU-FRP2010/ITU-FRP2010.html). Includes SpaceInvaders as an example.
+* Projects: [Yampa](http://github.com/ivanperez-keera/Yampa), the Arrowized Functional Reactive Programming implementation created by Henrik Nilsson and Antony Courtney.
+* Projects: [Haskanoid](https://github.com/ivanperez-keera/haskanoid), a game that uses SDL multimedia, wiimote and kinect. It's cross platform and works in desktop, mobile, and [web](http://ivanperez-keera.github.io/haskanoid/haskanoid.jsexe/index.html) (compiled with [GHCJS](https://github.com/ghcjs/ghcjs)).
+* Projects: [Magic Cookies](https://github.com/keera-studios/magic-cookies), a commercial FRP game written in Haskell using Yampa available on [iTunes](https://itunes.apple.com/us/app/magic-cookies/id1244709871) and [Google Play for Android](https://play.google.com/store/apps/details?id=uk.co.keera.games.magiccookies&hl=en).
 
 ## Educators
 
@@ -82,14 +73,12 @@ etc.).
 
 ## Help and collaboration
 
-You can collaborate at least in three ways:
+You can collaborate at least in two ways:
 
 * File an [issue](https://github.com/ivanperez-keera/SpaceInvaders/issues).
 * Write documentation (send a link and/or a pull request).
-* We would like to call on Haskell programmers, game developers and anyone with
-an interest in Functional Reactive Programming and/or Game Programming to
-review the code, ask for clarification when the code is not clear enough, and
-help us improve the game, and the state of FRP/Yampa programming as well.
+
+We would like to call on Haskell programmers, game developers and anyone with an interest in Functional Reactive Programming and/or Game Programming to review the code, ask for clarification when it is not clear enough, and help us improve the game, and the state of FRP/Yampa programming as well.
 
 ## Author
 
