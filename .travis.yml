@@ -25,11 +25,6 @@ script:
 notifications:
  email: true
 
-branches:
-    only:
-          - master
-          - develop
-
 deploy:
   provider: hackage
   username: keera_studios_ci
