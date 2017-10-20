@@ -83,6 +83,8 @@ We would like to call on Haskell programmers, game developers and anyone with an
 ## Author
 
 * Henrik Nilsson
+* Antony Courtney
+* John Peterson 
 
 ### Maintainer
 
