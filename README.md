@@ -56,7 +56,7 @@ $ cabal configure && cabal haddock --executables --internal
 
 ## Related slides and projects
 
-* Paper: [The Yampa Arcade, by Henrik Nilsson](http://www.cs.nott.ac.uk/~psznhn/papers.html#hw2003). Used to explain FRP to new audiences.
+* Paper: [The Yampa Arcade, by Antony Courtney, Henrik Nilsson, and John Peterson](http://www.cs.nott.ac.uk/~psznhn/papers.html#hw2003). Used to explain FRP to new audiences.
 * Talks: [The Yampa Arcade, Haskell Symposium 2003](http://www.cs.nott.ac.uk/~psznhn/Talks/HW2003-YampaArcade.pdf).
 * Talks: [FRP Games and Music, 2016](http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic.pdf) (also available as [handout](http://www.cs.nott.ac.uk/~psznhn/Talks/7digital-July2016-IntroductionToFRPAndYampaThroughGamesAndMusic-4up.pdf)). Makes some comparisons with Cycle.js and XStreams.
 * Talks: [Lectures on FRP, 2010](http://www.cs.nott.ac.uk/~psznhn/ITU-FRP2010/ITU-FRP2010.html). Includes SpaceInvaders as an example.
@@ -83,6 +83,7 @@ We would like to call on Haskell programmers, game developers and anyone with an
 ## Author
 
 * Henrik Nilsson
+* Antony Courtney
 
 ### Maintainer
 
