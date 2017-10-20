@@ -10,7 +10,7 @@ The game has been created for educational purposes, but tries to feature a
 substantial amount of the complexity often found in real arcade games. For example,
 differentiated subsystems for physics/collisions, input, rendering/multimedia, logic, etc.
 
-![SpaceInvaders on Debian](screenshots/debian.png?raw=true)
+![SpaceInvaders on Debian](screenshots/gameplay.gif?raw=true)
 
 ## Installation
 
