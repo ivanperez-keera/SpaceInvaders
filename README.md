@@ -27,9 +27,9 @@ If you want to explore the code and possibly make changes, do the following:
 
 ```
 $ cabal update
-$ cabal sandbox init
 $ cabal unpack SpaceInvaders        # or git clone https://github.com/ivanperez-keera/SpaceInvaders.git
 $ cd SpaceInvaders-*                # Game resources are here
+$ cabal sandbox init
 $ cabal install
 $ ./dist/build/spaceInvaders/spaceInvaders
 ```
