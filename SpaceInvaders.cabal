@@ -1,5 +1,5 @@
 name: SpaceInvaders
-version: 0.4.4
+version: 0.4.5
 cabal-Version: >= 1.6
 license: BSD3
 license-file: LICENSE
@@ -9,6 +9,7 @@ homepage: http://www.haskell.org/yampa/
 category: Game
 synopsis: Video game
 description: Video game implemented in Yampa.
+             <<https://github.com/ivanperez-keera/SpaceInvaders/blob/develop/screenshots/gameplay.gif?raw=true>>
 build-type: Simple
 
 executable spaceInvaders

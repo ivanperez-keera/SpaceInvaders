@@ -1,0 +1,5 @@
+2017-11-07 Christina Zeller <chriz@keera.co.uk>:
+	* SpaceInvaders.cabal: Version bump (0.4.5)
+
+2017-11-05 Christina Zeller <chriz@keera.co.uk>:
+	* SpaceInvaders.cabal: Adds gif to cabal description.
