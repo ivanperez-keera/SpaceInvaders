@@ -9,6 +9,7 @@ homepage: http://www.haskell.org/yampa/
 category: Game
 synopsis: Video game
 description: Video game implemented in Yampa.
+             .
              <<https://github.com/ivanperez-keera/SpaceInvaders/blob/develop/screenshots/gameplay.gif?raw=true>>
 build-type: Simple
 
