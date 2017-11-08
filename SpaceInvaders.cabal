@@ -12,6 +12,7 @@ description: Video game implemented in Yampa.
              .
              <<https://github.com/ivanperez-keera/SpaceInvaders/blob/develop/screenshots/gameplay.gif?raw=true>>
 build-type: Simple
+extra-source-files: CHANGELOG
 
 executable spaceInvaders
   hs-source-dirs:  src
