@@ -4,10 +4,14 @@
 language: haskell
 
 ghc:
- - "7.6.3"
- - "7.8.4"
- - "7.10.3"
- - "8.0.1"
+  - "7.6.3"
+  - "7.8.4"
+  - "7.10.3"
+  - "8.0.1"
+
+install:
+  - travis_retry sudo apt-get update
+  - travis_retry sudo apt-get install libxrandr-dev
 
 deploy:
   provider: hackage
