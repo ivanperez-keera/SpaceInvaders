@@ -9,7 +9,7 @@ ghc:
   - "7.10.3"
   - "8.0.1"
 
-install:
+before_install:
   - travis_retry sudo apt-get update
   - travis_retry sudo apt-get install libxrandr-dev
 
