@@ -39,9 +39,11 @@ module Object (
     alienAccMax         -- :: Acceleration
 ) where
 
+import Control.DeepSeq  (NFData (rnf))
+import Data.AffineSpace ((.-.))
+import Data.VectorSpace (dot, norm, (^-^))
+
 import FRP.Yampa (SF, Event)
-import FRP.Yampa.Geometry
-import FRP.Yampa.Forceable
 
 import Parser (GameInput)
 import PhysicalDimensions
@@ -101,9 +103,9 @@ data ObsObjState =
 -- Instances
 ------------------------------------------------------------------------------
 
-instance Forceable ObsObjState where
-    -- If non-strict fields: oosNonStrict1 obj `seq` ... `seq` obj 
-    force obj = obj
+instance NFData ObsObjState where
+    -- If non-strict fields: oosNonStrict1 obj `seq` ... `seq` obj
+    rnf obj = obj `seq` ()
 
 
 ------------------------------------------------------------------------------
