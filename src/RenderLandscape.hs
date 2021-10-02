@@ -16,9 +16,8 @@ module RenderLandscape (
 ) where
 
 import Data.Array
+import Data.Point2 (Point2(..))
 import qualified Graphics.HGL as HGL
-
-import FRP.Yampa.Point2 (Point2(..))
 
 import WorldGeometry
 import Colors

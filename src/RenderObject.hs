@@ -15,9 +15,10 @@ module RenderObject (
     renderObjects       -- :: [ObjObjState] -> HGL.Graphic
 ) where
 
+import Data.AffineSpace ((.+^), (.-^))
 import Data.Array
+import Data.Vector2 (vector2, vector2Polar)
 import qualified Graphics.HGL as HGL
-import FRP.Yampa.Geometry
 
 import PhysicalDimensions
 import WorldGeometry

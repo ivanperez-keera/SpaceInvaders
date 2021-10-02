@@ -17,12 +17,14 @@ module ObjectBehavior (
     alien       -- :: RandomGen g => g -> Position2 -> Object
 ) where
 
-import qualified System.Random as Random
+import           Data.AffineSpace ((.+^))
+import           Data.Point2      (Point2 (..), point2X)
+import           Data.Vector2     (vector2, vector2Polar, vector2Rho,
+                                   vector2Theta, vector2X, vector2Y)
+import qualified System.Random    as Random
 
 import FRP.Yampa
 import FRP.Yampa.Integration
-import FRP.Yampa.Utilities
-import FRP.Yampa.Geometry
 
 import PhysicalDimensions
 import WorldGeometry

@@ -17,11 +17,11 @@ module Main where
 
 import System.Random
 
+import Data.Point2 (Point2(..), point2Y)
 import Data.Maybe (isJust)
 import Data.Array
 
 import FRP.Yampa
-import FRP.Yampa.Geometry
 import qualified Graphics.HGL as HGL
 
 -- Temporary, just to make sure all modules compile.
@@ -110,14 +110,14 @@ game g nAliens vydAlien score0 = proc gi -> do
         objs0 = listToIL
                   (gun (Point2 0 50) : mkAliens g (worldXMin + d) 900 nAliens)
         d     = (worldXMax - worldXMin) / fromIntegral (nAliens + 1) -- Evenly spaced aliens
-        
-        
+
+
         mkAliens g x y n | n > 0 = alien g' (Point2 x y) vydAlien
                                    : mkAliens g'' (x + d) y (n - 1)
                         where (g', g'') = split g
         mkAliens _ _ _ 0 = []
         mkAliens _ _ _ _ = []
-    
+
         aliensDied :: IL ObjOutput -> Event (Score -> Score)
         aliensDied oos =
             fmap (\es -> (+length es))
@@ -162,7 +162,7 @@ game g nAliens vydAlien score0 = proc gi -> do
 
         route :: (GameInput, IL ObjOutput) -> IL sf -> IL (ObjInput, sf)
         route (gi,oos) objs = mapIL routeAux objs
-        
+
             where
                 routeAux (k, obj) =
                     (ObjInput {oiHit = if k `elem` hs
@@ -183,12 +183,12 @@ game g nAliens vydAlien score0 = proc gi -> do
                 hitsAux ((k,oos):kooss) =
                     [ [k, k'] | (k', oos') <- kooss, oos `hit` oos' ]
                     ++ hitsAux kooss
-        
+
                 oos1 `hit` oos2
                     | isMissile oos1 && isAlien oos2
                       || isAlien oos1 && isMissile oos2 = oos1 `colliding` oos2
                     | otherwise = False
-        
+
         killOrSpawn :: (a, IL ObjOutput) -> (Event (IL Object -> IL Object))
         killOrSpawn (_, oos) =
             foldl (mergeBy (.)) noEvent es
@@ -202,7 +202,7 @@ game g nAliens vydAlien score0 = proc gi -> do
 
 
 renderScore :: Score -> HGL.Graphic
-renderScore score = 
+renderScore score =
     HGL.withTextColor (colorTable ! White) $
     HGL.withTextAlignment (HGL.Left', HGL.Top) $
     HGL.text gp (show score)
