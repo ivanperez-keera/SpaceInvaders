@@ -1,3 +1,10 @@
+2021-10-07 Ivan Perez <ivan.perez@haskell.sexy>:
+	* SpaceInvaders.cabal: Version bump (0.13.3), update constraints on Yampa
+      bump cabal-version (#35).
+	* src/: Fix compilation issue due to GHC bug (#30), update to new Yampa
+      API (#32), fix speed problem due to threading (#33).
+    * .travis.yml: Update compilation matrix (#34).
+
 2017-11-07 Christina Zeller <chriz@keera.co.uk>:
 	* SpaceInvaders.cabal: Version bump (0.4.5)
 
