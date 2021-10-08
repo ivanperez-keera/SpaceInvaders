@@ -14,7 +14,7 @@
 
 module WorldGeometry where
 
-import FRP.Yampa.Point2 (Point2(..))
+import Data.Point2 (Point2(..))
 import PhysicalDimensions
 import qualified Graphics.HGL as HGL (Point)
 

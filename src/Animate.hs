@@ -34,7 +34,8 @@
 
 module Animate (WinInput, animate) where
 
-import Control.Monad (when)
+import Control.DeepSeq (NFData, force)
+import Control.Monad   (forM_, when)
 -- import Data.Maybe (isJust, fromJust)
 -- import Posix (SysVar(..), ProcessTimes, ClockTick,
 --               getSysVar, getProcessTimes, elapsedTime)
@@ -45,8 +46,6 @@ import qualified Graphics.HGL as HGL
 import FRP.Yampa
 import FRP.Yampa.Event
 -- import FRP.Yampa.Internals   -- Breaking the Event abstraction barrier here!
-import FRP.Yampa.Task (repeatUntil, forAll)
-import FRP.Yampa.Forceable
 
 import Diagnostics (intErr)
 import PhysicalDimensions
@@ -74,7 +73,7 @@ type WinInput = Event HGL.Event
 -- !!! function by means of continuations? Or maybe the IOTask monad is the
 -- !!! way to go, with a special "reactimateIOTask".
 
-animate :: (Forceable a)
+animate :: (NFData a)
         => Frequency -> String -> Int -> Int
         -> (a -> HGL.Graphic)
         -> (a -> [String])
@@ -93,20 +92,20 @@ animate fr title width height render tco sf = HGL.runGraphics $ do
                    getTimeInput
                    (\_ ea@(e,a) -> do
                        updateWin render win ea
-                       forAll (tco a) putStrLn
+                       forM_ (tco a) putStrLn
                        isClosed)
                    (repeatedly (1/fr) () &&& sf)
 -}
         reactimate init
                getTimeInput
                (\_ (ea@(e,a), (e', c)) -> do updateWin render win ea
-                                             forAll (tco a) putStrLn   -- If this is all maybe, why not use Control.Monad.forM_ ?
+                                             forM_ (tco a) putStrLn
                                              when (isEvent e') (putStrLn ("Cycle#: " ++ show c))
                                              isClosed)
                ((repeatedly (1/fr) () &&& sf)
                 &&& (repeatedly 1 ()
                      &&& loop (arr ((+1) . snd)
-                                 >>> iPre (0 :: Int) 
+                                 >>> iPre (0 :: Int)
                                  >>> arr dup)))
         HGL.closeWindow win
 
@@ -141,26 +140,26 @@ mkInitAndGetTimeInput win = do
 
     -- Next delta time and input
     let getTimeInput _ = do
-        -- Get time
-        tp <- readIORef tpRef
-        t  <- getElapsedTime `repeatUntil` (/= tp) -- Wrap around possible!
-        let dt = if t > tp then fromIntegral (t-tp)/clkRes else 1/clkRes
-        writeIORef tpRef t
+          -- Get time
+          tp <- readIORef tpRef
+          t  <- getElapsedTime `repeatUntil` (/= tp) -- Wrap around possible!
+          let dt = if t > tp then fromIntegral (t-tp)/clkRes else 1/clkRes
+          writeIORef tpRef t
 
-        -- Get input
-        mwe  <- getWinInput win weBufRef
-        mwep <- readIORef wepRef
-        writeIORef wepRef mwe
-        -- putStrLn ("dt = " ++ show dt)
-            -- when (isJust mwe) (putStrLn ("Event = " ++ show (fromJust mwe)))
-        -- Simplistic "delta encoding": detects only repeated NoEvent.
+          -- Get input
+          mwe  <- getWinInput win weBufRef
+          mwep <- readIORef wepRef
+          writeIORef wepRef mwe
+          -- putStrLn ("dt = " ++ show dt)
+              -- when (isJust mwe) (putStrLn ("Event = " ++ show (fromJust mwe)))
+          -- Simplistic "delta encoding": detects only repeated NoEvent.
 
-        -- Return time and input, possibly asking to close the program
-        case (mwep, mwe) of
-          (Nothing, Nothing)   -> return (dt, Nothing)
-          (_, Just HGL.Closed) -> do writeIORef closedRef True
-                                     return (dt, Just (maybeToEvent mwe))
-          _                    -> return (dt, Just (maybeToEvent mwe))
+          -- Return time and input, possibly asking to close the program
+          case (mwep, mwe) of
+            (Nothing, Nothing)   -> return (dt, Nothing)
+            (_, Just HGL.Closed) -> do writeIORef closedRef True
+                                       return (dt, Just (maybeToEvent mwe))
+            _                    -> return (dt, Just (maybeToEvent mwe))
 
     return (init, getTimeInput, readIORef closedRef)
 
@@ -168,19 +167,19 @@ mkInitAndGetTimeInput win = do
     errInitNotCalled = intErr "RSAnimate"
                                 "mkInitAndGetTimeInput"
                                   "Init procedure not called."
-    
+
     -- Accurate enough? Resolution seems to be 0.01 s, which could lead
     -- to substantial busy waiting above.
     -- getElapsedTime :: IO ClockTick
     -- getElapsedTime = fmap elapsedTime getProcessTimes
-    
+
     -- Use this for now. Have seen delta times down to 0.001 s. But as
     -- the complexity of the simulator signal function gets larger, the
     -- processing time for one iteration will presumably be > 0.01 s,
     -- and a clock resoltion of 0.01 s vs. 0.001 s becomes a non issue.
     getElapsedTime :: IO HGL.Time
     getElapsedTime = HGL.getTime
-    
+
 -- Get window input, with "redundant" mouse moves removed.
 getWinInput :: HGL.Window -> IORef (Maybe HGL.Event) -> IO (Maybe HGL.Event)
 getWinInput win weBufRef = do
@@ -224,6 +223,12 @@ getWinInput win weBufRef = do
 -- We also explicitly force displayed elements in case the renderer does not
 -- force everything.
 updateWin ::
-    Forceable a => (a -> HGL.Graphic) -> HGL.Window -> (Event (), a) -> IO ()
+    NFData a => (a -> HGL.Graphic) -> HGL.Window -> (Event (), a) -> IO ()
 updateWin render win (e, a) = when (force a `seq` isEvent e)
                                    (HGL.setGraphic win (render a))
+
+-- * Auxiliary function
+
+-- | Repeat m until result satisfies the predicate p
+repeatUntil :: Monad m => m a -> (a -> Bool) -> m a
+m `repeatUntil` p = m >>= \x -> if not (p x) then repeatUntil m p else return x

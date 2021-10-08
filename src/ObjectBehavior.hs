@@ -17,12 +17,14 @@ module ObjectBehavior (
     alien       -- :: RandomGen g => g -> Position2 -> Object
 ) where
 
-import qualified System.Random as Random
+import           Data.AffineSpace ((.+^))
+import           Data.Point2      (Point2 (..), point2X)
+import           Data.Vector2     (vector2, vector2Polar, vector2Rho,
+                                   vector2Theta, vector2X, vector2Y)
+import qualified System.Random    as Random
 
 import FRP.Yampa
 import FRP.Yampa.Integration
-import FRP.Yampa.Utilities
-import FRP.Yampa.Geometry
 
 import PhysicalDimensions
 import WorldGeometry
@@ -37,7 +39,19 @@ import Object
 gun :: Position2 -> Object
 gun (Point2 x0 y0) = proc (ObjInput {oiGameInput = gi}) -> do
     -- Position.
-    (Point2 xd _) <- ptrPos -< gi               -- Desired position
+    --
+    -- There is a bug in the GHC 8.* series that makes deconstructing
+    -- a Point2 in the left-hand side of an arrow expression trigger a
+    -- compilation error:
+    --
+    -- https://gitlab.haskell.org/ghc/ghc/-/issues/15175
+    -- https://gitlab.haskell.org/ghc/ghc/-/issues/18950
+    --
+    -- Instead, we name the output with a variable and then use let to
+    -- deconstruct the expression, which compiles correctly.
+    desiredPos <- ptrPos -< gi               -- Desired position
+    let (Point2 xd _) = desiredPos
+
     rec
         -- Controller.
         let ad = 10 * (xd - x) - 5 * v          -- Desired acceleration
@@ -60,7 +74,7 @@ gun (Point2 x0 y0) = proc (ObjInput {oiGameInput = gi}) -> do
                    ooObsObjState = oosGun (Point2 x y0) (vector2 v 0) level,
                    ooKillReq     = noEvent,
                    ooSpawnReq    =
-                       fire `tag` [missile (Point2 x (y0 + (gunHeight/2))) 
+                       fire `tag` [missile (Point2 x (y0 + (gunHeight/2)))
                                            (vector2 v missileInitialSpeed)]
                }
 
@@ -73,16 +87,16 @@ gun (Point2 x0 y0) = proc (ObjInput {oiGameInput = gi}) -> do
 -- output ..... Tuple:
 --   #1: Current number of missiles in magazine.
 --   #2: Missile fired event.
-magazine :: 
-  Int -> Frequency 
+magazine ::
+  Int -> Frequency
       -> SF (Event ()) (Int, Event ())
 magazine n f = proc trigger -> do
   reload <- repeatedly (1/f) () -< ()
-  (level,canFire) 
-      <- accumHold (n,True) -< 
+  (level,canFire)
+      <- accumHold (n,True) -<
              (trigger `tag` dec)
              `lMerge` (reload `tag` inc)
-  returnA -< (level, 
+  returnA -< (level,
               trigger `gate` canFire)
   where
     inc :: (Int,Bool) -> (Int, Bool)
@@ -161,10 +175,10 @@ alien g p0 vyd = proc oi -> do
 
         -- About 4% of time spent here.
         -- Pick a desired horizontal position.
-        rx     <- noiseR (worldXMin, worldXMax) g -< () 
+        rx     <- noiseR (worldXMin, worldXMax) g -< ()
         sample <- occasionally g 5 ()             -< ()
-        xd     <- hold (point2X p0)               -< sample `tag` rx    
-        
+        xd     <- hold (point2X p0)               -< sample `tag` rx
+
         -- Controller. Control constants not optimized. Who says aliens know
         -- anything about control theory?
         let axd = 5 * (xd - point2X p) - 3 * (vector2X v)
@@ -198,7 +212,7 @@ alien g p0 vyd = proc oi -> do
 
 
 
--- About 20% of the time spent here. 
+-- About 20% of the time spent here.
 shield :: SF (Event ()) ShieldLevel
 shield = proc hit -> do
     rec
