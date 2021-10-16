@@ -86,7 +86,3 @@ We would like to call on Haskell programmers, game developers and anyone with an
 ### Maintainer
 
 * Ivan Perez
-
-### Collaborators
-
-* Christina Zeller
