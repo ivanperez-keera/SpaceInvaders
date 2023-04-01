@@ -6,6 +6,7 @@
 -- Author: Henrik Nilsson
 module ColorBindings where
 
+-- Internal imports
 import Colors
 
 ------------------------------------------------------------------------------
