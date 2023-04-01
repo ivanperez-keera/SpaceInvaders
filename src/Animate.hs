@@ -7,15 +7,15 @@
 module Animate (WinInput, animate) where
 
 -- External imports
-import Control.DeepSeq (NFData, force)
-import Control.Monad   (forM_, when)
-import Data.IORef (IORef, newIORef, readIORef, writeIORef)
-import qualified Graphics.HGL as HGL
-import FRP.Yampa
-import FRP.Yampa.Event
+import           Control.DeepSeq (NFData, force)
+import           Control.Monad   (forM_, when)
+import           Data.IORef      (IORef, newIORef, readIORef, writeIORef)
+import           FRP.Yampa
+import           FRP.Yampa.Event
+import qualified Graphics.HGL    as HGL
 
 -- Internal imports
-import Diagnostics (intErr)
+import Diagnostics        (intErr)
 import PhysicalDimensions
 
 -- Approach: The signal function is sampled as frequently as possible. It's
