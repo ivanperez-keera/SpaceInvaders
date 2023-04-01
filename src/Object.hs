@@ -1,17 +1,10 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Object                                               *
-*       Purpose:        Definition of objects in the world and their static  *
-*                       properties.                                          *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : Object
+-- Description : Definition of objects in the world and their static
+--               properties.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module Object (
     Object,
     ObjInput(..),
