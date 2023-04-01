@@ -6,6 +6,7 @@
 -- Author: Henrik Nilsson
 module WorldGeometry where
 
+-- External imports
 import Data.Point2 (Point2(..))
 import PhysicalDimensions
 import qualified Graphics.HGL as HGL (Point)
