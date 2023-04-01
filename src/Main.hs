@@ -1,18 +1,10 @@
 {-# LANGUAGE Arrows #-}
-
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Main                                                 *
-*       Purpose:        Main module.                                         *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : Main
+-- Description : Main module.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module Main where
 
 import System.Random
