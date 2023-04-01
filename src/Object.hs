@@ -32,12 +32,13 @@ module Object (
     alienAccMax         -- :: Acceleration
 ) where
 
+-- External imports
 import Control.DeepSeq  (NFData (rnf))
 import Data.AffineSpace ((.-.))
 import Data.VectorSpace (dot, norm, (^-^))
-
 import FRP.Yampa (SF, Event)
 
+-- Internal imports
 import Parser (GameInput)
 import PhysicalDimensions
 import WorldGeometry
