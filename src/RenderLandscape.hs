@@ -1,16 +1,9 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         RenderLandscape                                      *
-*       Purpose:        Rendering of the fixed backdrop.                     *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : RenderLandscape
+-- Description : Rendering of the fixed backdrop.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module RenderLandscape (
     landscape           -- :: HGL.Graphic
 ) where
