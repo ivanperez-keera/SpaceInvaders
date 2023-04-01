@@ -1,16 +1,9 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Command                                              *
-*       Purpose:        The Invader command type.                            *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : Command
+-- Description : The Invader command type.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module Command (
     Command(..)
 ) where
