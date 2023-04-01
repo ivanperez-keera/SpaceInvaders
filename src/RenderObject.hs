@@ -87,7 +87,7 @@ rectangle c p1 p2 =
 
 
 circle :: Color -> Position2 -> Length -> HGL.Graphic
-circle c p r = 
+circle c p r =
     HGL.mkBrush (colorTable ! c) $ \brush ->
     HGL.withBrush brush         $
     HGL.ellipse gp11 gp22
