@@ -69,7 +69,7 @@ data ObjOutput = ObjOutput {
 -- the fields (e.g. if a bounding box field were added) might be dependent on
 -- others. The reason ObsObjState is not exported abstractly is that it is
 -- convenient to inspect it by pattern matching.
--- 
+--
 -- To avoid space leaks, all fields (except possibly dependent ones) are
 -- strict.
 
