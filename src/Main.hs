@@ -8,12 +8,12 @@
 module Main where
 
 -- External imports
-import Data.Array
-import Data.Maybe (isJust)
-import Data.Point2 (Point2(..), point2Y)
-import FRP.Yampa
-import qualified Graphics.HGL as HGL
-import System.Random
+import           Data.Array
+import           Data.Maybe    (isJust)
+import           Data.Point2   (Point2 (..), point2Y)
+import           FRP.Yampa
+import qualified Graphics.HGL  as HGL
+import           System.Random
 
 -- Internal imports
 -- Temporary, just to make sure all modules compile.
