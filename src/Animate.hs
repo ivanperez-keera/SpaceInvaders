@@ -4,6 +4,18 @@
 -- Copyright   : (c) Yale University, 2003
 --
 -- Author: Henrik Nilsson
+module Animate (WinInput, animate) where
+
+import Control.DeepSeq (NFData, force)
+import Control.Monad   (forM_, when)
+import Data.IORef (IORef, newIORef, readIORef, writeIORef)
+import qualified Graphics.HGL as HGL
+
+import FRP.Yampa
+import FRP.Yampa.Event
+
+import Diagnostics (intErr)
+import PhysicalDimensions
 
 -- Approach: The signal function is sampled as frequently as possible. It's
 -- the OS's task to allocate resources, so we can just as well use up all the
@@ -25,20 +37,6 @@
 -- and since the tick frequency is high, no major waiting should ensue. This
 -- is the current method, although it seems as if this method means that
 -- window close events often will be missed.
-
-module Animate (WinInput, animate) where
-
-import Control.DeepSeq (NFData, force)
-import Control.Monad   (forM_, when)
-import Data.IORef (IORef, newIORef, readIORef, writeIORef)
-import qualified Graphics.HGL as HGL
-
-import FRP.Yampa
-import FRP.Yampa.Event
-
-import Diagnostics (intErr)
-import PhysicalDimensions
-
 
 type WinInput = Event HGL.Event
 
