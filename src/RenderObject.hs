@@ -1,16 +1,9 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         RenderObject                                         *
-*       Purpose:        Object rendering.                                    *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : RenderObject
+-- Description : Object rendering.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module RenderObject (
     renderObjects       -- :: [ObjObjState] -> HGL.Graphic
 ) where
