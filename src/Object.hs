@@ -229,33 +229,31 @@ alienAccMax = 100
 -- Support functions
 ------------------------------------------------------------------------------
 
-{-
--- Old stuff
-
--- Bounding box is calculated once and cached inside object.
-
-computeObjBBox :: Object -> BBox
-computeObjBBox (ObjBlock {objPos = p}) = BBox (p .-^ d) (p .+^ d)
-    where
-        d = vector2 (blockSide / 2) (blockSide / 2)
-computeObjBBox (ObjNSWall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
-    where
-        d = vector2 (nsWallXSide / 2) (nsWallYSide / 2)
-computeObjBBox (ObjEWWall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
-    where
-        d = vector2 (ewWallXSide / 2) (ewWallYSide / 2)
-computeObjBBox (ObjSimbotA {objPos = p}) = BBox (p .-^ d) (p .+^ d)
-    where
-        d = vector2 simbotARadius simbotARadius
-computeObjBBox (ObjSimbotB {objPos = p, objHdng = d}) = BBox p1 p2
-    where
-        Point2 x1 y1 = p .+^ (vector2Polar simbotBRadius d) -- Nose
-        Point2 x2 y2 = p .+^ (vector2Polar simbotBRadius (d + 2*pi/3))
-        Point2 x3 y3 = p .+^ (vector2Polar simbotBRadius (d - 2*pi/3))
-
-        p1 = Point2 (minimum [x1,x2,x3]) (minimum [y1,y2,y3])
-        p2 = Point2 (maximum [x1,x2,x3]) (maximum [y1,y2,y3])
-computeObjBBox (ObjBall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
-    where
-        d = vector2 ballRadius ballRadius
--}
+-- -- Old stuff
+--
+-- -- Bounding box is calculated once and cached inside object.
+--
+-- computeObjBBox :: Object -> BBox
+-- computeObjBBox (ObjBlock {objPos = p}) = BBox (p .-^ d) (p .+^ d)
+--     where
+--         d = vector2 (blockSide / 2) (blockSide / 2)
+-- computeObjBBox (ObjNSWall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
+--     where
+--         d = vector2 (nsWallXSide / 2) (nsWallYSide / 2)
+-- computeObjBBox (ObjEWWall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
+--     where
+--         d = vector2 (ewWallXSide / 2) (ewWallYSide / 2)
+-- computeObjBBox (ObjSimbotA {objPos = p}) = BBox (p .-^ d) (p .+^ d)
+--     where
+--         d = vector2 simbotARadius simbotARadius
+-- computeObjBBox (ObjSimbotB {objPos = p, objHdng = d}) = BBox p1 p2
+--     where
+--         Point2 x1 y1 = p .+^ (vector2Polar simbotBRadius d) -- Nose
+--         Point2 x2 y2 = p .+^ (vector2Polar simbotBRadius (d + 2*pi/3))
+--         Point2 x3 y3 = p .+^ (vector2Polar simbotBRadius (d - 2*pi/3))
+--
+--         p1 = Point2 (minimum [x1,x2,x3]) (minimum [y1,y2,y3])
+--         p2 = Point2 (maximum [x1,x2,x3]) (maximum [y1,y2,y3])
+-- computeObjBBox (ObjBall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
+--     where
+--         d = vector2 ballRadius ballRadius
