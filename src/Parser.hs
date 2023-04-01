@@ -27,17 +27,17 @@ module Parser (
 ) where
 
 -- External imports
-import Data.AffineSpace (origin, (.-.))
-import Data.Char (isDigit, isSpace, ord)
-import Data.Maybe (isJust, isNothing)
-import qualified Graphics.HGL as HGL (Event(..))
-import FRP.Yampa
+import           Data.AffineSpace (origin, (.-.))
+import           Data.Char        (isDigit, isSpace, ord)
+import           Data.Maybe       (isJust, isNothing)
+import           FRP.Yampa
+import qualified Graphics.HGL     as HGL (Event (..))
 
 -- Internal imports
-import Animate (WinInput)
+import Animate            (WinInput)
 import Command
 import PhysicalDimensions
-import WorldGeometry (gPointToPosition2)
+import WorldGeometry      (gPointToPosition2)
 
 ------------------------------------------------------------------------------
 -- Exported entities
