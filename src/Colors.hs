@@ -75,7 +75,8 @@ data Color =
     | Purple
     deriving (Eq, Ord, Bounded, Enum, Ix)
 
-colorList = 
+colorList :: [(Color, RGB)]
+colorList =
     [
         -- Basic colours.
         (Black,                 RGB   0   0   0),
@@ -141,4 +142,5 @@ colorList =
     ]
 
 
+colorTable :: Array Color RGB
 colorTable = array (minBound, maxBound) colorList

@@ -13,8 +13,11 @@ import Colors
 -- Landscape colors
 ------------------------------------------------------------------------------
 
+distantMountainColor    :: Color
 distantMountainColor    = MidnightBlue
+closeMountainColor      :: Color
 closeMountainColor      = Purple
+groundColor             :: Color
 groundColor             = Red
 
 
@@ -22,10 +25,15 @@ groundColor             = Red
 -- Object colour bindings
 ------------------------------------------------------------------------------
 
+gunColor       :: Color
 gunColor       = White
 
+missileColor   :: Color
 missileColor   = Yellow
 
+alienColor     :: Color
 alienColor     = LimeGreen
+alienWingColor :: Color
 alienWingColor = CornflowerBlue
+alienDoorColor :: Color
 alienDoorColor = Orange
