@@ -6,14 +6,15 @@
 -- Author: Henrik Nilsson
 module Animate (WinInput, animate) where
 
+-- External imports
 import Control.DeepSeq (NFData, force)
 import Control.Monad   (forM_, when)
 import Data.IORef (IORef, newIORef, readIORef, writeIORef)
 import qualified Graphics.HGL as HGL
-
 import FRP.Yampa
 import FRP.Yampa.Event
 
+-- Internal imports
 import Diagnostics (intErr)
 import PhysicalDimensions
 
