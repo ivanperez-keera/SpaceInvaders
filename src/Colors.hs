@@ -1,16 +1,9 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Colors                                               *
-*       Purpose:        Colour definitions.                                  *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : Colors
+-- Description : Colour definitions.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module Colors (Color(..), RGB, colorTable) where
 
 import Data.Array
