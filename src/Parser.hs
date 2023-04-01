@@ -26,13 +26,14 @@ module Parser (
     dragging            -- :: SF GameInput Bool
 ) where
 
+-- External imports
 import Data.AffineSpace (origin, (.-.))
 import Data.Maybe (isNothing, isJust)
 import qualified Graphics.HGL as HGL (Event(..))
 import Data.Char (ord, isSpace, isDigit)
-
 import FRP.Yampa
 
+-- Internal imports
 import PhysicalDimensions
 import WorldGeometry (gPointToPosition2)
 import Command
