@@ -76,10 +76,12 @@ animate fr title width height render tco sf = HGL.runGraphics $ do
 
         reactimate init
                getTimeInput
-               (\_ (ea@(e,a), (e', c)) -> do updateWin render win ea
-                                             forM_ (tco a) putStrLn
-                                             when (isEvent e') (putStrLn ("Cycle#: " ++ show c))
-                                             isClosed)
+               (\_ (ea@(e,a), (e', c)) -> do
+                  updateWin render win ea
+                  forM_ (tco a) putStrLn
+                  when (isEvent e') (putStrLn ("Cycle#: " ++ show c))
+                  isClosed
+               )
                ((repeatedly (1/fr) () &&& sf)
                 &&& (repeatedly 1 ()
                      &&& loop (arr ((+1) . snd)
