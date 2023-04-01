@@ -7,7 +7,7 @@
 module WorldGeometry where
 
 -- External imports
-import Data.Point2 (Point2(..))
+import           Data.Point2  (Point2 (..))
 import qualified Graphics.HGL as HGL (Point)
 
 -- Internal imports
