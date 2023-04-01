@@ -36,7 +36,7 @@ module Object (
 import Control.DeepSeq  (NFData (rnf))
 import Data.AffineSpace ((.-.))
 import Data.VectorSpace (dot, norm, (^-^))
-import FRP.Yampa (SF, Event)
+import FRP.Yampa (Event, SF)
 
 -- Internal imports
 import Parser (GameInput)
