@@ -55,8 +55,13 @@ restartingGame g = rgAux g nAliens0 vydAlien0 0
         rgAux g nAliens vydAlien score =
             switch (game g' nAliens vydAlien score) $ \status ->
             case status of
-                Left score' -> rgAux g'' (nAliens + 1) (vydAlien - 10) score' -- Next level
-                Right _     -> rgAux g'' nAliens0      vydAlien0       0      -- Game over
+                Left score' ->
+                  -- Next level
+                  rgAux g'' (nAliens + 1) (vydAlien - 10) score'
+
+                Right _ ->
+                  -- Game over
+                  rgAux g'' nAliens0 vydAlien0 0
             where
                 (g', g'') = split g
 
