@@ -1,15 +1,9 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Animate                                              *
-*       Purpose:        Animation of graphical signal functions.             *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
+-- |
+-- Module      : Animate
+-- Description : Animation of graphical signal functions.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 
 -- Approach: The signal function is sampled as frequently as possible. It's
 -- the OS's task to allocate resources, so we can just as well use up all the
