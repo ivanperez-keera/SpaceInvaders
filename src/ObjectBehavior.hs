@@ -13,7 +13,7 @@ module ObjectBehavior (
 -- External imports
 import           Data.AffineSpace ((.+^))
 import           Data.Point2      (Point2 (..), point2X)
-import           Data.Vector2     (vector2, vector2Polar, vector2Rho,
+import           Data.Vector2     (Vector2, vector2, vector2Polar, vector2Rho,
                                    vector2Theta, vector2X, vector2Y)
 import FRP.Yampa
 import FRP.Yampa.Integration
@@ -261,6 +261,7 @@ forceField = proc (p, v) -> do
     returnA -< (mergeBy (^+^) (lfi `tag` (vector2 (-2 * vector2X v) 0))
                               (rfi `tag` (vector2 (-2 * vector2X v) 0)))
 
+gravity :: Vector2 Double
 gravity = vector2 0 (-20)
 
 
@@ -268,6 +269,8 @@ gravity = vector2 0 (-20)
 -- Support
 ------------------------------------------------------------------------------
 
+limit :: Ord a => a -> a -> a -> a
 limit ll ul x = if x < ll then ll else if x > ul then ul else x
 
+symLimit :: (Ord a, Num a) => a -> a -> a
 symLimit l = let absl = abs l in limit (-absl) absl
