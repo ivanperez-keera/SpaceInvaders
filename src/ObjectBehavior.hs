@@ -109,26 +109,23 @@ magazine n f = proc trigger -> do
 --              #1 .... Current number of missiles in magazine.
 --              #2 .... Missile fired.
 
-{-
- Henrik's original version, commented out for now:
-
-magazine :: Int -> Frequency -> SF (Event ()) (Int, Event ())
-magazine n f = proc trigger -> do
-    reload       <- repeatedly (1/f) ()      -< ()
-    -- We have a reverse application operator #, but for some reason arrowp
-    -- chokes on (#).
-    newLevelFire <- accumFilter (flip ($)) n -< (trigger `tag` dec)
-                                                `lMerge` (reload `tag` inc)
-    level        <- hold n              -< fmap fst newLevelFire
-    returnA -< (level, filterE snd newLevelFire `tag` ())
-    where
-        -- inc, dec :: Int -> (Int, Maybe (Int, Bool))
-        inc l | l < n     = (l + 1, Just (l + 1, False))
-              | otherwise = (l, Nothing)
-        dec l | l > 0     = (l - 1, Just (l - 1, True))
-              | otherwise = (l, Nothing)
-
--}
+--  Henrik's original version, commented out for now:
+--
+-- magazine :: Int -> Frequency -> SF (Event ()) (Int, Event ())
+-- magazine n f = proc trigger -> do
+--     reload       <- repeatedly (1/f) ()      -< ()
+--     -- We have a reverse application operator #, but for some reason arrowp
+--     -- chokes on (#).
+--     newLevelFire <- accumFilter (flip ($)) n -< (trigger `tag` dec)
+--                                                 `lMerge` (reload `tag` inc)
+--     level        <- hold n              -< fmap fst newLevelFire
+--     returnA -< (level, filterE snd newLevelFire `tag` ())
+--     where
+--         -- inc, dec :: Int -> (Int, Maybe (Int, Bool))
+--         inc l | l < n     = (l + 1, Just (l + 1, False))
+--               | otherwise = (l, Nothing)
+--         dec l | l > 0     = (l - 1, Just (l - 1, True))
+--               | otherwise = (l, Nothing)
 
 ------------------------------------------------------------------------------
 -- Missile
@@ -230,21 +227,19 @@ shield = proc hit -> do
 -- system put in place by the mythical and technologically advanced
 -- "Predecessors" eons ago.
 
-{-
-field :: Position2 -> Acceleration2
-field (Point2 x _) = vector2 (leftAcc - rightAcc) 0 ^+^ gravity
-    where
-        leftAcc  = min (if x > worldXMin
-                        then k / (x - worldXMin)^3
-                        else maxAcc)
-                       maxAcc
-        rightAcc = min (if x < worldXMax
-                        then k / (worldXMax - x)^3
-                        else maxAcc)
-                       maxAcc
-        k        = 10000000
-        maxAcc   = 10000
--}
+-- field :: Position2 -> Acceleration2
+-- field (Point2 x _) = vector2 (leftAcc - rightAcc) 0 ^+^ gravity
+--     where
+--         leftAcc  = min (if x > worldXMin
+--                         then k / (x - worldXMin)^3
+--                         else maxAcc)
+--                        maxAcc
+--         rightAcc = min (if x < worldXMax
+--                         then k / (worldXMax - x)^3
+--                         else maxAcc)
+--                        maxAcc
+--         k        = 10000000
+--         maxAcc   = 10000
 
 -- New attempt. Force fields act like invisible walls.
 -- The fact that this is a stateful *signal* function (Fields having state?
