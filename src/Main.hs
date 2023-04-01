@@ -95,8 +95,8 @@ game g nAliens vydAlien score0 = proc gi -> do
     -- rather than tryingto figure out a score indirectly through the
     -- absence of objects!
     rec
-        oos  <- game' objs0  -< (gi, oos {- oosp -})
-        {- oosp <- iPre emptyIL -< oos -}
+        oos  <- game' objs0  -< (gi, oos) -- oosp
+        -- oosp <- iPre emptyIL -< oos
     score    <- accumHold score0 -< aliensDied oos
     gameOver <- edge             -< alienLanded oos
     newRound <- edge             -< noAliensLeft oos
@@ -143,13 +143,13 @@ game g nAliens vydAlien score0 = proc gi -> do
         -- the hit detection. But this is a really fragile property!
         -- Not that notYet is needed regardless of whether pSwictch or
         -- dpSwitch is used.
-{-
-        game' :: IL Object -> SF (GameInput, IL ObjOutput) (IL ObjOutput)
-        game' objs = dpSwitch route
-                              objs
-                              (arr killOrSpawn >>> notYet)
-                              (\sfs' f -> game' (f sfs'))
--}
+
+        -- game' :: IL Object -> SF (GameInput, IL ObjOutput) (IL ObjOutput)
+        -- game' objs = dpSwitch route
+        --                       objs
+        --                       (arr killOrSpawn >>> notYet)
+        --                       (\sfs' f -> game' (f sfs'))
+
         -- Slightly more efficient, and maybe clearer?
         game' :: IL Object -> SF (GameInput, IL ObjOutput) (IL ObjOutput)
         game' objs = dpSwitch route
