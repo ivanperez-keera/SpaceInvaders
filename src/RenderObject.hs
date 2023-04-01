@@ -9,10 +9,10 @@ module RenderObject (
 ) where
 
 -- External imports
-import Data.AffineSpace ((.+^), (.-^))
-import Data.Array
-import Data.Vector2 (vector2, vector2Polar)
-import qualified Graphics.HGL as HGL
+import           Data.AffineSpace ((.+^), (.-^))
+import           Data.Array
+import           Data.Vector2     (vector2, vector2Polar)
+import qualified Graphics.HGL     as HGL
 
 -- Internal imports
 import ColorBindings
