@@ -100,13 +100,16 @@ game g nAliens vydAlien score0 = proc gi -> do
     score    <- accumHold score0 -< aliensDied oos
     gameOver <- edge             -< alienLanded oos
     newRound <- edge             -< noAliensLeft oos
-    returnA -< ( (score, map ooObsObjState (elemsIL oos)),
-                 (newRound `tag` (Left score)) `lMerge` (gameOver `tag` (Right score))
-               )
+    returnA -<
+      ( (score, map ooObsObjState (elemsIL oos)),
+        (newRound `tag` (Left score)) `lMerge` (gameOver `tag` (Right score))
+      )
     where
         objs0 = listToIL
                   (gun (Point2 0 50) : mkAliens g (worldXMin + d) 900 nAliens)
-        d     = (worldXMax - worldXMin) / fromIntegral (nAliens + 1) -- Evenly spaced aliens
+
+         -- Evenly spaced aliens
+        d = (worldXMax - worldXMin) / fromIntegral (nAliens + 1)
 
 
         mkAliens g x y n | n > 0 = alien g' (Point2 x y) vydAlien
