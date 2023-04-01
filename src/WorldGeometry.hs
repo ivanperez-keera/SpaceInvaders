@@ -1,17 +1,9 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         WorldGeometry                                        *
-*       Purpose:        Constants and functions defining the geometry of     *
-*                       the world.                                           *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : WorldGeometry
+-- Description : Constants and functions defining the geometry of the world.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module WorldGeometry where
 
 import Data.Point2 (Point2(..))
