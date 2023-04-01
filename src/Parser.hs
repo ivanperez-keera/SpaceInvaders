@@ -1,20 +1,12 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Parser                                               *
-*       Purpose:        Parsing (mainly lexical analysis) of window event    *
-*                       stream.                                              *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : Parser
+-- Description : Parsing (mainly lexical analysis) of window event stream.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
+--
 -- Quick 'n dirty adaptation from old robot simulator. Could probably be
 -- done better in the new AFRP framework.
-
 module Parser (
     GameInput,          -- Abstract
     parseWinInput,      -- :: SF WinInput GameInput
