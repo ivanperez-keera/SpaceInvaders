@@ -1,16 +1,9 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         ObjectBehavior                                       *
-*       Purpose:        Behavior of objects.                                 *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : ObjectBehavior
+-- Description : Behavior of objects.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module ObjectBehavior (
     gun,        -- :: Position2 -> Object
     missile,    -- :: Position2 -> Velocity2 -> Object
