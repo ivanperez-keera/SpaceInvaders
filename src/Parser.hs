@@ -129,7 +129,7 @@ dragging = arr (giPDS >>> pdsDrag >>> isJust)
 
 
 ------------------------------------------------------------------------------
--- Lexical analysis of character input 
+-- Lexical analysis of character input
 ------------------------------------------------------------------------------
 
 -- Currently overkill, but being able to enter multi-character commands
@@ -169,7 +169,7 @@ scanCmds = scanCmd cmds
     where
         cmds =
             [ ("q", emitCmd scanCmds CmdQuit), -- Discard inp.?
-              ("p", emitCmd scanCmds CmdNewGame), 
+              ("p", emitCmd scanCmds CmdNewGame),
               ("f", emitCmd scanCmds CmdFreeze),
               ("r", emitCmd scanCmds CmdResume)
             ]
@@ -180,7 +180,7 @@ scanCmds = scanCmd cmds
 -- prefix is valid. Starts over on first invalid character. Invokes success
 -- continuation on success.
 -- cmds ....... List of pairs of valid command and corresponding success
---              continuation. 
+--              continuation.
 
 scanCmd :: [(String, Cont String)] -> Scanner
 scanCmd cmds = scanSubCmd "" cmds
@@ -192,7 +192,7 @@ scanCmd cmds = scanSubCmd "" cmds
 -- continuation on success.
 -- pfx0 ....... Initial prefix.
 -- cmds ....... List of pairs of valid command and corresponding success
---              continuation. 
+--              continuation.
 
 scanSubCmd :: String -> [(String, Cont String)] -> Scanner
 scanSubCmd pfx0 cmds = S (scHlp pfx0 cmds)
