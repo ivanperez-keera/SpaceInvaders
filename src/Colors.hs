@@ -6,6 +6,7 @@
 -- Author: Henrik Nilsson
 module Colors (Color(..), RGB, colorTable) where
 
+-- External imports
 import Data.Array
 import Graphics.HGL (RGB(..))
 
