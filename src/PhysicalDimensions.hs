@@ -44,6 +44,7 @@ module PhysicalDimensions (
     headingToBearing    -- :: Heading -> Bearing
 ) where
 
+-- External imports
 import Data.Fixed   (mod')
 import Data.Point2  (Point2)
 import Data.Point3  (Point3)
