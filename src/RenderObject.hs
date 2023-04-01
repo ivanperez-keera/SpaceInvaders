@@ -15,11 +15,11 @@ import Data.Vector2 (vector2, vector2Polar)
 import qualified Graphics.HGL as HGL
 
 -- Internal imports
+import ColorBindings
+import Colors
+import Object
 import PhysicalDimensions
 import WorldGeometry
-import Colors
-import ColorBindings
-import Object
 
 ------------------------------------------------------------------------------
 -- Object rendering
