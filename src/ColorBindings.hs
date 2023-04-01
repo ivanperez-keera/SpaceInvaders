@@ -1,16 +1,9 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         ColorBindings                                        *
-*       Purpose:        Definition of colours for various objects.           *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : ColorBindings
+-- Description : Definition of colours for various objects.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module ColorBindings where
 
 import Colors
