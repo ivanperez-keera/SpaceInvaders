@@ -9,8 +9,8 @@ module RenderLandscape (
 ) where
 
 -- External imports
-import Data.Array
-import Data.Point2 (Point2(..))
+import           Data.Array
+import           Data.Point2  (Point2 (..))
 import qualified Graphics.HGL as HGL
 
 -- Internal imports
