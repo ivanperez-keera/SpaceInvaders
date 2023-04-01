@@ -28,8 +28,8 @@ module Parser (
 
 -- External imports
 import Data.AffineSpace (origin, (.-.))
-import Data.Char (ord, isSpace, isDigit)
-import Data.Maybe (isNothing, isJust)
+import Data.Char (isDigit, isSpace, ord)
+import Data.Maybe (isJust, isNothing)
 import qualified Graphics.HGL as HGL (Event(..))
 import FRP.Yampa
 
