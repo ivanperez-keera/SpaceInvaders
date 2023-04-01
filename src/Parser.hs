@@ -1,20 +1,12 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Parser                                               *
-*       Purpose:        Parsing (mainly lexical analysis) of window event    *
-*                       stream.                                              *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : Parser
+-- Description : Parsing (mainly lexical analysis) of window event stream.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
+--
 -- Quick 'n dirty adaptation from old robot simulator. Could probably be
 -- done better in the new AFRP framework.
-
 module Parser (
     GameInput,          -- Abstract
     parseWinInput,      -- :: SF WinInput GameInput
@@ -34,17 +26,18 @@ module Parser (
     dragging            -- :: SF GameInput Bool
 ) where
 
-import Data.AffineSpace (origin, (.-.))
-import Data.Maybe (isNothing, isJust)
-import qualified Graphics.HGL as HGL (Event(..))
-import Data.Char (ord, isSpace, isDigit)
+-- External imports
+import           Data.AffineSpace (origin, (.-.))
+import           Data.Char        (isDigit, isSpace, ord)
+import           Data.Maybe       (isJust, isNothing)
+import           FRP.Yampa
+import qualified Graphics.HGL     as HGL (Event (..))
 
-import FRP.Yampa
-
-import PhysicalDimensions
-import WorldGeometry (gPointToPosition2)
+-- Internal imports
+import Animate            (WinInput)
 import Command
-import Animate (WinInput)
+import PhysicalDimensions
+import WorldGeometry      (gPointToPosition2)
 
 ------------------------------------------------------------------------------
 -- Exported entities
@@ -136,7 +129,7 @@ dragging = arr (giPDS >>> pdsDrag >>> isJust)
 
 
 ------------------------------------------------------------------------------
--- Lexical analysis of character input 
+-- Lexical analysis of character input
 ------------------------------------------------------------------------------
 
 -- Currently overkill, but being able to enter multi-character commands
@@ -176,7 +169,7 @@ scanCmds = scanCmd cmds
     where
         cmds =
             [ ("q", emitCmd scanCmds CmdQuit), -- Discard inp.?
-              ("p", emitCmd scanCmds CmdNewGame), 
+              ("p", emitCmd scanCmds CmdNewGame),
               ("f", emitCmd scanCmds CmdFreeze),
               ("r", emitCmd scanCmds CmdResume)
             ]
@@ -187,7 +180,7 @@ scanCmds = scanCmd cmds
 -- prefix is valid. Starts over on first invalid character. Invokes success
 -- continuation on success.
 -- cmds ....... List of pairs of valid command and corresponding success
---              continuation. 
+--              continuation.
 
 scanCmd :: [(String, Cont String)] -> Scanner
 scanCmd cmds = scanSubCmd "" cmds
@@ -199,7 +192,7 @@ scanCmd cmds = scanSubCmd "" cmds
 -- continuation on success.
 -- pfx0 ....... Initial prefix.
 -- cmds ....... List of pairs of valid command and corresponding success
---              continuation. 
+--              continuation.
 
 scanSubCmd :: String -> [(String, Cont String)] -> Scanner
 scanSubCmd pfx0 cmds = S (scHlp pfx0 cmds)

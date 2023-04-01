@@ -1,17 +1,10 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         PhysicalDimensions                                   *
-*       Purpose:        Type synonyms for physical dimensions and some       *
-*                       related operations.                                  *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : PhysicalDimensions
+-- Description : Type synonyms for physical dimensions and some related
+--               operations.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module PhysicalDimensions (
     InvaderReal,
 
@@ -51,6 +44,7 @@ module PhysicalDimensions (
     headingToBearing    -- :: Heading -> Bearing
 ) where
 
+-- External imports
 import Data.Fixed   (mod')
 import Data.Point2  (Point2)
 import Data.Point3  (Point3)

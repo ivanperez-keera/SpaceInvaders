@@ -1,18 +1,12 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Colors                                               *
-*       Purpose:        Colour definitions.                                  *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : Colors
+-- Description : Colour definitions.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module Colors (Color(..), RGB, colorTable) where
 
+-- External imports
 import Data.Array
 import Graphics.HGL (RGB(..))
 
@@ -81,7 +75,8 @@ data Color =
     | Purple
     deriving (Eq, Ord, Bounded, Enum, Ix)
 
-colorList = 
+colorList :: [(Color, RGB)]
+colorList =
     [
         -- Basic colours.
         (Black,                 RGB   0   0   0),
@@ -147,4 +142,5 @@ colorList =
     ]
 
 
+colorTable :: Array Color RGB
 colorTable = array (minBound, maxBound) colorList

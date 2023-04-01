@@ -1,30 +1,25 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         RenderObject                                         *
-*       Purpose:        Object rendering.                                    *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : RenderObject
+-- Description : Object rendering.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module RenderObject (
     renderObjects       -- :: [ObjObjState] -> HGL.Graphic
 ) where
 
-import Data.AffineSpace ((.+^), (.-^))
-import Data.Array
-import Data.Vector2 (vector2, vector2Polar)
-import qualified Graphics.HGL as HGL
+-- External imports
+import           Data.AffineSpace ((.+^), (.-^))
+import           Data.Array
+import           Data.Vector2     (vector2, vector2Polar)
+import qualified Graphics.HGL     as HGL
 
+-- Internal imports
+import ColorBindings
+import Colors
+import Object
 import PhysicalDimensions
 import WorldGeometry
-import Colors
-import ColorBindings
-import Object
 
 ------------------------------------------------------------------------------
 -- Object rendering
@@ -92,7 +87,7 @@ rectangle c p1 p2 =
 
 
 circle :: Color -> Position2 -> Length -> HGL.Graphic
-circle c p r = 
+circle c p r =
     HGL.mkBrush (colorTable ! c) $ \brush ->
     HGL.withBrush brush         $
     HGL.ellipse gp11 gp22

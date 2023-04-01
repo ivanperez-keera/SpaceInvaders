@@ -1,35 +1,30 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         ObjectBehavior                                       *
-*       Purpose:        Behavior of objects.                                 *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : ObjectBehavior
+-- Description : Behavior of objects.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module ObjectBehavior (
     gun,        -- :: Position2 -> Object
     missile,    -- :: Position2 -> Velocity2 -> Object
     alien       -- :: RandomGen g => g -> Position2 -> Object
 ) where
 
-import           Data.AffineSpace ((.+^))
-import           Data.Point2      (Point2 (..), point2X)
-import           Data.Vector2     (vector2, vector2Polar, vector2Rho,
-                                   vector2Theta, vector2X, vector2Y)
-import qualified System.Random    as Random
+-- External imports
+import           Data.AffineSpace      ((.+^))
+import           Data.Point2           (Point2 (..), point2X)
+import           Data.Vector2          (Vector2, vector2, vector2Polar,
+                                        vector2Rho, vector2Theta, vector2X,
+                                        vector2Y)
+import           FRP.Yampa
+import           FRP.Yampa.Integration
+import qualified System.Random         as Random
 
-import FRP.Yampa
-import FRP.Yampa.Integration
-
+-- Internal imports
+import Object
+import Parser
 import PhysicalDimensions
 import WorldGeometry
-import Parser
-import Object
 
 
 ------------------------------------------------------------------------------
@@ -114,26 +109,23 @@ magazine n f = proc trigger -> do
 --              #1 .... Current number of missiles in magazine.
 --              #2 .... Missile fired.
 
-{-
- Henrik's original version, commented out for now:
-
-magazine :: Int -> Frequency -> SF (Event ()) (Int, Event ())
-magazine n f = proc trigger -> do
-    reload       <- repeatedly (1/f) ()      -< ()
-    -- We have a reverse application operator #, but for some reason arrowp
-    -- chokes on (#).
-    newLevelFire <- accumFilter (flip ($)) n -< (trigger `tag` dec)
-                                                `lMerge` (reload `tag` inc)
-    level        <- hold n              -< fmap fst newLevelFire
-    returnA -< (level, filterE snd newLevelFire `tag` ())
-    where
-        -- inc, dec :: Int -> (Int, Maybe (Int, Bool))
-        inc l | l < n     = (l + 1, Just (l + 1, False))
-              | otherwise = (l, Nothing)
-        dec l | l > 0     = (l - 1, Just (l - 1, True))
-              | otherwise = (l, Nothing)
-
--}
+--  Henrik's original version, commented out for now:
+--
+-- magazine :: Int -> Frequency -> SF (Event ()) (Int, Event ())
+-- magazine n f = proc trigger -> do
+--     reload       <- repeatedly (1/f) ()      -< ()
+--     -- We have a reverse application operator #, but for some reason arrowp
+--     -- chokes on (#).
+--     newLevelFire <- accumFilter (flip ($)) n -< (trigger `tag` dec)
+--                                                 `lMerge` (reload `tag` inc)
+--     level        <- hold n              -< fmap fst newLevelFire
+--     returnA -< (level, filterE snd newLevelFire `tag` ())
+--     where
+--         -- inc, dec :: Int -> (Int, Maybe (Int, Bool))
+--         inc l | l < n     = (l + 1, Just (l + 1, False))
+--               | otherwise = (l, Nothing)
+--         dec l | l > 0     = (l - 1, Just (l - 1, True))
+--               | otherwise = (l, Nothing)
 
 ------------------------------------------------------------------------------
 -- Missile
@@ -235,21 +227,19 @@ shield = proc hit -> do
 -- system put in place by the mythical and technologically advanced
 -- "Predecessors" eons ago.
 
-{-
-field :: Position2 -> Acceleration2
-field (Point2 x _) = vector2 (leftAcc - rightAcc) 0 ^+^ gravity
-    where
-        leftAcc  = min (if x > worldXMin
-                        then k / (x - worldXMin)^3
-                        else maxAcc)
-                       maxAcc
-        rightAcc = min (if x < worldXMax
-                        then k / (worldXMax - x)^3
-                        else maxAcc)
-                       maxAcc
-        k        = 10000000
-        maxAcc   = 10000
--}
+-- field :: Position2 -> Acceleration2
+-- field (Point2 x _) = vector2 (leftAcc - rightAcc) 0 ^+^ gravity
+--     where
+--         leftAcc  = min (if x > worldXMin
+--                         then k / (x - worldXMin)^3
+--                         else maxAcc)
+--                        maxAcc
+--         rightAcc = min (if x < worldXMax
+--                         then k / (worldXMax - x)^3
+--                         else maxAcc)
+--                        maxAcc
+--         k        = 10000000
+--         maxAcc   = 10000
 
 -- New attempt. Force fields act like invisible walls.
 -- The fact that this is a stateful *signal* function (Fields having state?
@@ -267,6 +257,7 @@ forceField = proc (p, v) -> do
     returnA -< (mergeBy (^+^) (lfi `tag` (vector2 (-2 * vector2X v) 0))
                               (rfi `tag` (vector2 (-2 * vector2X v) 0)))
 
+gravity :: Vector2 Double
 gravity = vector2 0 (-20)
 
 
@@ -274,6 +265,8 @@ gravity = vector2 0 (-20)
 -- Support
 ------------------------------------------------------------------------------
 
+limit :: Ord a => a -> a -> a -> a
 limit ll ul x = if x < ll then ll else if x > ul then ul else x
 
+symLimit :: (Ord a, Num a) => a -> a -> a
 symLimit l = let absl = abs l in limit (-absl) absl
