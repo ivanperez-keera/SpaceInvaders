@@ -1,3 +1,6 @@
+2023-03-31 Ivan Perez <ivan.perez@keera.co.uk>:
+    * src/: Conformace with style guide (#40).
+
 2021-10-07 Ivan Perez <ivan.perez@haskell.sexy>:
 	* SpaceInvaders.cabal: Version bump (0.13.3), update constraints on Yampa
       bump cabal-version (#35).
