@@ -18,7 +18,7 @@ executable spaceInvaders
   hs-source-dirs:  src
   ghc-options : -Wall -fno-warn-name-shadowing
   build-Depends: base >= 3 && < 5, array, random, HGL, Yampa >= 0.13.3
-               , simple-affine-space >= 0.1 && < 0.2
+               , simple-affine-space >= 0.1 && < 0.3
                , deepseq >= 1.3.0 && < 1.5
   main-is: Main.hs
   default-extensions: Arrows
