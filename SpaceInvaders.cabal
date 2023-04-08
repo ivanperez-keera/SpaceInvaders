@@ -1,5 +1,5 @@
 name: SpaceInvaders
-version: 0.13.3
+version: 0.14.2
 cabal-Version: >= 1.10
 license: BSD3
 license-file: LICENSE
