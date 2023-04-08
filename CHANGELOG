@@ -1,5 +1,6 @@
 2023-04-08 Ivan Perez <ivan.perez@keera.co.uk>:
-    * SpaceInvaders.cabal: bump constraint on simple-affine-space (#43).
+    * SpaceInvaders.cabal: Version bump (0.14.2) (#42), bump constraint on
+      simple-affine-space (#43).
     * src/: Conformace with style guide (#40).
     * .travis.yml: Update dist in travis config file to Bionic (#41).
 
