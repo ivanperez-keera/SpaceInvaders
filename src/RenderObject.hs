@@ -1,30 +1,25 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         RenderObject                                         *
-*       Purpose:        Object rendering.                                    *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : RenderObject
+-- Description : Object rendering.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module RenderObject (
     renderObjects       -- :: [ObjObjState] -> HGL.Graphic
 ) where
 
-import Data.AffineSpace ((.+^), (.-^))
-import Data.Array
-import Data.Vector2 (vector2, vector2Polar)
-import qualified Graphics.HGL as HGL
+-- External imports
+import           Data.AffineSpace ((.+^), (.-^))
+import           Data.Array
+import           Data.Vector2     (vector2, vector2Polar)
+import qualified Graphics.HGL     as HGL
 
+-- Internal imports
+import ColorBindings
+import Colors
+import Object
 import PhysicalDimensions
 import WorldGeometry
-import Colors
-import ColorBindings
-import Object
 
 ------------------------------------------------------------------------------
 -- Object rendering
@@ -92,7 +87,7 @@ rectangle c p1 p2 =
 
 
 circle :: Color -> Position2 -> Length -> HGL.Graphic
-circle c p r = 
+circle c p r =
     HGL.mkBrush (colorTable ! c) $ \brush ->
     HGL.withBrush brush         $
     HGL.ellipse gp11 gp22
@@ -102,20 +97,6 @@ circle c p r =
         gp22 = position2ToGPoint (p .+^ d)
 
 
-{-
-bbox :: Position2 -> Position2 -> HGL.Graphic
-bbox p1 p2 =
-    -- Line style and thiknes seems to be ignored completely?
-    HGL.mkPen HGL.Dash 2 (colorTable ! bboxColor) $ \pen ->
-    HGL.withPen pen                           $
-    HGL.polyline [gp11, gp12, gp22, gp21, gp11]
-    where
-        gp11@(x1,y1) = position2ToGPoint p1
-        gp12         = (x1, y2)
-        gp22@(x2,y2) = position2ToGPoint p2
-        gp21         = (x2, y1)
--}
-
 centeredText :: Color -> Position2 -> String -> HGL.Graphic
 centeredText c p s =
     HGL.withTextColor (colorTable ! c) $
@@ -123,13 +104,3 @@ centeredText c p s =
     HGL.text gp s
     where
         gp = position2ToGPoint p
-
-{-
--- Centering pretty ad hoc.
-centeredText :: Position2 -> String -> HGL.Graphic
-centeredText p s = HGL.text (x', y') s
-    where
-        (x,y) = position2ToGPoint p
-        x'    = x - (445 * length s) `div` 100
-        y'    = y - 7
--}

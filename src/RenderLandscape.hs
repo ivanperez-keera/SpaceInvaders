@@ -1,27 +1,22 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         RenderLandscape                                      *
-*       Purpose:        Rendering of the fixed backdrop.                     *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : RenderLandscape
+-- Description : Rendering of the fixed backdrop.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module RenderLandscape (
     landscape           -- :: HGL.Graphic
 ) where
 
-import Data.Array
-import Data.Point2 (Point2(..))
+-- External imports
+import           Data.Array
+import           Data.Point2  (Point2 (..))
 import qualified Graphics.HGL as HGL
 
-import WorldGeometry
-import Colors
+-- Internal imports
 import ColorBindings
+import Colors
+import WorldGeometry
 
 
 ------------------------------------------------------------------------------

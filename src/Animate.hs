@@ -1,15 +1,22 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Animate                                              *
-*       Purpose:        Animation of graphical signal functions.             *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
+-- |
+-- Module      : Animate
+-- Description : Animation of graphical signal functions.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
+module Animate (WinInput, animate) where
+
+-- External imports
+import           Control.DeepSeq (NFData, force)
+import           Control.Monad   (forM_, when)
+import           Data.IORef      (IORef, newIORef, readIORef, writeIORef)
+import           FRP.Yampa
+import           FRP.Yampa.Event
+import qualified Graphics.HGL    as HGL
+
+-- Internal imports
+import Diagnostics        (intErr)
+import PhysicalDimensions
 
 -- Approach: The signal function is sampled as frequently as possible. It's
 -- the OS's task to allocate resources, so we can just as well use up all the
@@ -31,25 +38,6 @@
 -- and since the tick frequency is high, no major waiting should ensue. This
 -- is the current method, although it seems as if this method means that
 -- window close events often will be missed.
-
-module Animate (WinInput, animate) where
-
-import Control.DeepSeq (NFData, force)
-import Control.Monad   (forM_, when)
--- import Data.Maybe (isJust, fromJust)
--- import Posix (SysVar(..), ProcessTimes, ClockTick,
---               getSysVar, getProcessTimes, elapsedTime)
--- import Concurrent (yield)
-import Data.IORef (IORef, newIORef, readIORef, writeIORef)
-import qualified Graphics.HGL as HGL
-
-import FRP.Yampa
-import FRP.Yampa.Event
--- import FRP.Yampa.Internals   -- Breaking the Event abstraction barrier here!
-
-import Diagnostics (intErr)
-import PhysicalDimensions
-
 
 type WinInput = Event HGL.Event
 
@@ -84,24 +72,17 @@ animate fr title width height render tco sf = HGL.runGraphics $ do
                                 Nothing                 -- Initial position.
                                 (width, height)         -- Size.
                                 HGL.DoubleBuffered      -- Painfully SLOW!!!
-                                -- HGL.Unbuffered       -- Flickers!
                                 (Just 1)                -- For scheduling!?!
         (init, getTimeInput, isClosed) <- mkInitAndGetTimeInput win
-{-
-        reactimate init
-                   getTimeInput
-                   (\_ ea@(e,a) -> do
-                       updateWin render win ea
-                       forM_ (tco a) putStrLn
-                       isClosed)
-                   (repeatedly (1/fr) () &&& sf)
--}
+
         reactimate init
                getTimeInput
-               (\_ (ea@(e,a), (e', c)) -> do updateWin render win ea
-                                             forM_ (tco a) putStrLn
-                                             when (isEvent e') (putStrLn ("Cycle#: " ++ show c))
-                                             isClosed)
+               (\_ (ea@(e,a), (e', c)) -> do
+                  updateWin render win ea
+                  forM_ (tco a) putStrLn
+                  when (isEvent e') (putStrLn ("Cycle#: " ++ show c))
+                  isClosed
+               )
                ((repeatedly (1/fr) () &&& sf)
                 &&& (repeatedly 1 ()
                      &&& loop (arr ((+1) . snd)
@@ -118,7 +99,6 @@ mkInitAndGetTimeInput
     :: HGL.Window
        -> IO (IO WinInput, Bool -> IO (DTime,Maybe WinInput), IO Bool)
 mkInitAndGetTimeInput win = do
-    -- clkRes   <- fmap fromIntegral (getSysVar ClockTick)
     let clkRes = 1000
     tpRef     <- newIORef errInitNotCalled
     wepRef    <- newIORef errInitNotCalled
@@ -150,9 +130,6 @@ mkInitAndGetTimeInput win = do
           mwe  <- getWinInput win weBufRef
           mwep <- readIORef wepRef
           writeIORef wepRef mwe
-          -- putStrLn ("dt = " ++ show dt)
-              -- when (isJust mwe) (putStrLn ("Event = " ++ show (fromJust mwe)))
-          -- Simplistic "delta encoding": detects only repeated NoEvent.
 
           -- Return time and input, possibly asking to close the program
           case (mwep, mwe) of
@@ -209,7 +186,6 @@ getWinInput win weBufRef = do
         -- Maybe the process typically dies before the waiting time is up in
         -- the latter case?
         gwi win = do
-            -- yield
             HGL.getWindowTick win
             mwe <- HGL.maybeGetWindowEvent win
             return mwe

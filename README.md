@@ -18,9 +18,9 @@ The game is available on [hackage](https://hackage.haskell.org/package/SpaceInva
 
 ```
 $ cabal update
-$ cabal sandbox init
 $ cabal install SpaceInvaders
-$ ./.cabal-sandbox/bin/spaceInvaders
+$ export PATH="$HOME/.cabal/bin:$PATH"
+$ spaceInvaders
 ```
 
 If you want to explore the code and possibly make changes, do the following:
@@ -28,10 +28,10 @@ If you want to explore the code and possibly make changes, do the following:
 ```
 $ cabal update
 $ cabal unpack SpaceInvaders        # or git clone https://github.com/ivanperez-keera/SpaceInvaders.git
-$ cd SpaceInvaders-*                # Game resources are here
-$ cabal sandbox init
+$ cd SpaceInvaders*                 # Game resources are here
 $ cabal install
-$ ./dist/build/spaceInvaders/spaceInvaders
+$ export PATH="$HOME/.cabal/bin:$PATH"
+$ spaceInvaders
 ```
 
 *__Additional notes__:
@@ -47,11 +47,9 @@ To try and make things as clear as possible, the code includes a much haddock
 documentation and comments as we could reasonably fit. You can compile those with:
 
 ```
-$ cabal unpack SpaceInvaders     ## Or git clone this-repo
-$ cd SpaceInvaders-*
-$ cabal sandbox init
-$ cabal install --only-dependencies
-$ cabal configure && cabal haddock --executables --internal
+$ cabal unpack SpaceInvaders        # or git clone https://github.com/ivanperez-keera/SpaceInvaders.git
+$ cd SpaceInvaders*                 # Game resources are here
+$ cabal haddock --haddock-executables
 ```
 
 ## Related slides and projects
@@ -88,7 +86,3 @@ We would like to call on Haskell programmers, game developers and anyone with an
 ### Maintainer
 
 * Ivan Perez
-
-### Collaborators
-
-* Christina Zeller

@@ -1,33 +1,25 @@
 {-# LANGUAGE Arrows #-}
-
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Main                                                 *
-*       Purpose:        Main module.                                         *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : Main
+-- Description : Main module.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module Main where
 
-import System.Random
+-- External imports
+import           Data.Array
+import           Data.Maybe    (isJust)
+import           Data.Point2   (Point2 (..), point2Y)
+import           FRP.Yampa
+import qualified Graphics.HGL  as HGL
+import           System.Random
 
-import Data.Point2 (Point2(..), point2Y)
-import Data.Maybe (isJust)
-import Data.Array
-
-import FRP.Yampa
-import qualified Graphics.HGL as HGL
-
+-- Internal imports
 -- Temporary, just to make sure all modules compile.
 import Animate
-import IdentityList
 import Colors
+import IdentityList
 import Object
 import ObjectBehavior
 import Parser
@@ -63,8 +55,13 @@ restartingGame g = rgAux g nAliens0 vydAlien0 0
         rgAux g nAliens vydAlien score =
             switch (game g' nAliens vydAlien score) $ \status ->
             case status of
-                Left score' -> rgAux g'' (nAliens + 1) (vydAlien - 10) score' -- Next level
-                Right _     -> rgAux g'' nAliens0      vydAlien0       0      -- Game over
+                Left score' ->
+                  -- Next level
+                  rgAux g'' (nAliens + 1) (vydAlien - 10) score'
+
+                Right _ ->
+                  -- Game over
+                  rgAux g'' nAliens0 vydAlien0 0
             where
                 (g', g'') = split g
 
@@ -98,18 +95,21 @@ game g nAliens vydAlien score0 = proc gi -> do
     -- rather than tryingto figure out a score indirectly through the
     -- absence of objects!
     rec
-        oos  <- game' objs0  -< (gi, oos {- oosp -})
-        {- oosp <- iPre emptyIL -< oos -}
+        oos  <- game' objs0  -< (gi, oos) -- oosp
+        -- oosp <- iPre emptyIL -< oos
     score    <- accumHold score0 -< aliensDied oos
     gameOver <- edge             -< alienLanded oos
     newRound <- edge             -< noAliensLeft oos
-    returnA -< ( (score, map ooObsObjState (elemsIL oos)),
-                 (newRound `tag` (Left score)) `lMerge` (gameOver `tag` (Right score))
-               )
+    returnA -<
+      ( (score, map ooObsObjState (elemsIL oos)),
+        (newRound `tag` (Left score)) `lMerge` (gameOver `tag` (Right score))
+      )
     where
         objs0 = listToIL
                   (gun (Point2 0 50) : mkAliens g (worldXMin + d) 900 nAliens)
-        d     = (worldXMax - worldXMin) / fromIntegral (nAliens + 1) -- Evenly spaced aliens
+
+         -- Evenly spaced aliens
+        d = (worldXMax - worldXMin) / fromIntegral (nAliens + 1)
 
 
         mkAliens g x y n | n > 0 = alien g' (Point2 x y) vydAlien
@@ -143,13 +143,13 @@ game g nAliens vydAlien score0 = proc gi -> do
         -- the hit detection. But this is a really fragile property!
         -- Not that notYet is needed regardless of whether pSwictch or
         -- dpSwitch is used.
-{-
-        game' :: IL Object -> SF (GameInput, IL ObjOutput) (IL ObjOutput)
-        game' objs = dpSwitch route
-                              objs
-                              (arr killOrSpawn >>> notYet)
-                              (\sfs' f -> game' (f sfs'))
--}
+
+        -- game' :: IL Object -> SF (GameInput, IL ObjOutput) (IL ObjOutput)
+        -- game' objs = dpSwitch route
+        --                       objs
+        --                       (arr killOrSpawn >>> notYet)
+        --                       (\sfs' f -> game' (f sfs'))
+
         -- Slightly more efficient, and maybe clearer?
         game' :: IL Object -> SF (GameInput, IL ObjOutput) (IL ObjOutput)
         game' objs = dpSwitch route

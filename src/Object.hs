@@ -1,17 +1,10 @@
-{-
-******************************************************************************
-*                              I N V A D E R S                               *
-*                                                                            *
-*       Module:         Object                                               *
-*       Purpose:        Definition of objects in the world and their static  *
-*                       properties.                                          *
-*       Author:         Henrik Nilsson                                       *
-*                                                                            *
-*             Copyright (c) Yale University, 2003                            *
-*                                                                            *
-******************************************************************************
--}
-
+-- |
+-- Module      : Object
+-- Description : Definition of objects in the world and their static
+--               properties.
+-- Copyright   : (c) Yale University, 2003
+--
+-- Author: Henrik Nilsson
 module Object (
     Object,
     ObjInput(..),
@@ -39,13 +32,14 @@ module Object (
     alienAccMax         -- :: Acceleration
 ) where
 
+-- External imports
 import Control.DeepSeq  (NFData (rnf))
 import Data.AffineSpace ((.-.))
 import Data.VectorSpace (dot, norm, (^-^))
+import FRP.Yampa        (Event, SF)
 
-import FRP.Yampa (SF, Event)
-
-import Parser (GameInput)
+-- Internal imports
+import Parser             (GameInput)
 import PhysicalDimensions
 import WorldGeometry
 
@@ -75,7 +69,7 @@ data ObjOutput = ObjOutput {
 -- the fields (e.g. if a bounding box field were added) might be dependent on
 -- others. The reason ObsObjState is not exported abstractly is that it is
 -- convenient to inspect it by pattern matching.
--- 
+--
 -- To avoid space leaks, all fields (except possibly dependent ones) are
 -- strict.
 
@@ -235,33 +229,31 @@ alienAccMax = 100
 -- Support functions
 ------------------------------------------------------------------------------
 
-{-
--- Old stuff
-
--- Bounding box is calculated once and cached inside object.
-
-computeObjBBox :: Object -> BBox
-computeObjBBox (ObjBlock {objPos = p}) = BBox (p .-^ d) (p .+^ d)
-    where
-        d = vector2 (blockSide / 2) (blockSide / 2)
-computeObjBBox (ObjNSWall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
-    where
-        d = vector2 (nsWallXSide / 2) (nsWallYSide / 2)
-computeObjBBox (ObjEWWall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
-    where
-        d = vector2 (ewWallXSide / 2) (ewWallYSide / 2)
-computeObjBBox (ObjSimbotA {objPos = p}) = BBox (p .-^ d) (p .+^ d)
-    where
-        d = vector2 simbotARadius simbotARadius
-computeObjBBox (ObjSimbotB {objPos = p, objHdng = d}) = BBox p1 p2
-    where
-        Point2 x1 y1 = p .+^ (vector2Polar simbotBRadius d) -- Nose
-        Point2 x2 y2 = p .+^ (vector2Polar simbotBRadius (d + 2*pi/3))
-        Point2 x3 y3 = p .+^ (vector2Polar simbotBRadius (d - 2*pi/3))
-
-        p1 = Point2 (minimum [x1,x2,x3]) (minimum [y1,y2,y3])
-        p2 = Point2 (maximum [x1,x2,x3]) (maximum [y1,y2,y3])
-computeObjBBox (ObjBall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
-    where
-        d = vector2 ballRadius ballRadius
--}
+-- -- Old stuff
+--
+-- -- Bounding box is calculated once and cached inside object.
+--
+-- computeObjBBox :: Object -> BBox
+-- computeObjBBox (ObjBlock {objPos = p}) = BBox (p .-^ d) (p .+^ d)
+--     where
+--         d = vector2 (blockSide / 2) (blockSide / 2)
+-- computeObjBBox (ObjNSWall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
+--     where
+--         d = vector2 (nsWallXSide / 2) (nsWallYSide / 2)
+-- computeObjBBox (ObjEWWall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
+--     where
+--         d = vector2 (ewWallXSide / 2) (ewWallYSide / 2)
+-- computeObjBBox (ObjSimbotA {objPos = p}) = BBox (p .-^ d) (p .+^ d)
+--     where
+--         d = vector2 simbotARadius simbotARadius
+-- computeObjBBox (ObjSimbotB {objPos = p, objHdng = d}) = BBox p1 p2
+--     where
+--         Point2 x1 y1 = p .+^ (vector2Polar simbotBRadius d) -- Nose
+--         Point2 x2 y2 = p .+^ (vector2Polar simbotBRadius (d + 2*pi/3))
+--         Point2 x3 y3 = p .+^ (vector2Polar simbotBRadius (d - 2*pi/3))
+--
+--         p1 = Point2 (minimum [x1,x2,x3]) (minimum [y1,y2,y3])
+--         p2 = Point2 (maximum [x1,x2,x3]) (maximum [y1,y2,y3])
+-- computeObjBBox (ObjBall {objPos = p}) = BBox (p .-^ d) (p .+^ d)
+--     where
+--         d = vector2 ballRadius ballRadius
