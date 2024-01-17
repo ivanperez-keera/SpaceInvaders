@@ -120,6 +120,7 @@ mkInitAndGetTimeInput win = do
 
     -- Next delta time and input
     let getTimeInput _ = do
+          HGL.getWindowTick win
           -- Get time
           tp <- readIORef tpRef
           t  <- getElapsedTime `repeatUntil` (/= tp) -- Wrap around possible!
@@ -186,7 +187,6 @@ getWinInput win weBufRef = do
         -- Maybe the process typically dies before the waiting time is up in
         -- the latter case?
         gwi win = do
-            HGL.getWindowTick win
             mwe <- HGL.maybeGetWindowEvent win
             return mwe
 
