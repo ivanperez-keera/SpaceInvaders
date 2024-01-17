@@ -120,6 +120,12 @@ mkInitAndGetTimeInput win = do
 
     -- Next delta time and input
     let getTimeInput _ = do
+          -- Seems as if we either have to yield or wait for a tick in order
+          -- to ensure that the thread receiving events gets a chance to
+          -- work. For some reason, yielding seems to result in window close
+          -- events getting through, wheras waiting often means they don't.
+          -- Maybe the process typically dies before the waiting time is up in
+          -- the latter case?
           HGL.getWindowTick win
           -- Get time
           tp <- readIORef tpRef
@@ -179,13 +185,6 @@ getWinInput win weBufRef = do
                 Just (HGL.MouseMove {}) -> mmFilter mwe'
                 Just _                  -> writeIORef weBufRef mwe'
                                            >> return jmme
-
-        -- Seems as if we either have to yield or wait for a tick in order
-        -- to ensure that the thread receiving events gets a chance to
-        -- work. For some reason, yielding seems to result in window close
-        -- events getting through, wheras waiting often means they don't.
-        -- Maybe the process typically dies before the waiting time is up in
-        -- the latter case?
         gwi win = do
             mwe <- HGL.maybeGetWindowEvent win
             return mwe
